@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If citing this weight-space audit, SGNE-CC patch, or trace archive, please use the metadata below."
+type: software
+title: "Weight-Space Audit of MIT-p50c and DNA Weight Editing (SGNE-CC) on Qwen3.5-0.8B at a 32,768-Token Generation Limit"
+authors:
+  - family-names: "Zhuk"
+    given-names: "Igor M."
+version: "1.0.0"
+date-released: "2026-11-15"
+doi: "10.5281/zenodo.24235218"
+url: "https://doi.org/10.5281/zenodo.24235218"
+repository-code: "https://github.com/Nondual-Observer/dna-weight-editing"
+license: "Apache-2.0"
+keywords:
+  - "DNA Weight Editing"
+  - "SGNE-CC"
+  - "Weight-Space Programming"
+  - "Qwen3.5-0.8B"
+  - "MIT-p50c"
+  - "GatedDeltaNet"
+  - "Column Norm Preservation"
+  - "Long-Horizon Generation"

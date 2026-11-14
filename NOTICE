@@ -1,0 +1,62 @@
+DNA Weight Editing (SGNE-CC) & MIT-p50c Weight-Space Audit Package
+Copyright 2026 The SGNE-CC Author
+
+Scope of Apache-2.0 License:
+  Original author code (`apply_dna_patch.py`, original portions of `scripts/`), the weight
+  diff patch (`sgne_cc_dna_delta.npz`), author-created prompts (`MultiSpeech-64` and the
+  7 prose prompts in `FreshBlind56`), author-generated `.jsonl` model output traces, figures
+  (`charts_mobile_sections/*.png`), and paper text (`README.md`, `README_RU.md`) are licensed
+  under the Apache License, Version 2.0 (see `LICENSE`).
+
+  Bundled or adapted third-party code snippets, benchmark problem sets, and external reference
+  logs retain their respective original licenses as itemized below and in `THIRD_PARTY_LICENSES.md`.
+
+Third-Party Notices, Sources, and License Scope:
+
+1. Base Model Reference (`Qwen/Qwen3.5-0.8B`)
+   - Source: https://huggingface.co/Qwen/Qwen3.5-0.8B
+   - Copyright: Alibaba Cloud Qwen Team
+   - License: Apache License, Version 2.0 (https://www.apache.org/licenses/LICENSE-2.0.txt)
+   - Scope: `sgne_cc_dna_delta.npz` stores `BF16` weight replacements for selected columns and
+     one gate row of `Qwen/Qwen3.5-0.8B`; any full checkpoint assembled via `apply_dna_patch.py`
+     remains subject to the Apache-2.0 terms and notices of `Qwen/Qwen3.5-0.8B`.
+
+2. MIT Weight-Space Programming Reference Logs and Evaluation Helpers
+   - Paper: R. Takehi, A. Teoh, A. L. Zhang, O. Khattab, "Sparks of Weight-Space Programming"
+     (MIT CSAIL, 2026), https://rikiyat.github.io/blog/weight-space-programming/
+   - Upstream repository: https://github.com/RikiyaT/lm_understand-logs
+     (see https://github.com/RikiyaT/lm_understand-logs/blob/main/LICENSE)
+   - Reference logs & derived per-problem summary (`traces/mit_official_math500_ref/`):
+     Licensed by upstream authors under Creative Commons Attribution 4.0 International
+     (`CC BY 4.0`, https://creativecommons.org/licenses/by/4.0/). `mit_unedited_merged.json`
+     and `mit_p50c_merged.json` are upstream summary logs; `mit_p50c_official_500_per_problem.json`
+     is an extracted 500-item summary table derived from upstream `exp8_math` logs.
+   - Adapted evaluation helpers in `scripts/verify_paper_metrics.py` (`mit_last_boxed`,
+     `mit_remove_boxes`, `mit_extract_boxed`, `mit_last_answer_part`, `mit_lenient_correct`):
+     Adapted from `exp8_math/code/mathqa.py` and `exp8_math/code/evaluate.py` under the
+     MIT License (with upstream Hendrycks MATH box-parsing helpers also under the MIT License;
+     full permission notices in `THIRD_PARTY_LICENSES.md`).
+
+3. Public Evaluation Datasets Included or Sampled in `suites/`
+   - Hendrycks `MATH` (`suites/suite_math500_full.json`, `suites/suite_math500_strat100.json`,
+     and the 49 math problems in `suites/fresh_blind56_32k_suite.json`):
+     Derived from Dan Hendrycks et al., "Measuring Mathematical Problem Solving With the MATH
+     Dataset" (https://github.com/hendrycks/math, MIT License; 500-problem test subset curated
+     via OpenAI PRM800K / `HuggingFaceH4/MATH-500`). Adapted here into JSON benchmark records
+     with stratified 100-item and 49-item subsets.
+   - `MGSM` (`suites/suite_unseen_mgsm240_bbh160.json`, 240 records = 40 problems x 6 languages
+     `ru, de, fr, es, zh, ja` selected from the 250-problem multilingual corpus):
+     Freda Shi et al., "Language Models are Multilingual Chain-of-Thought Reasoners"
+     (https://huggingface.co/datasets/juletxara/mgsm), licensed under Creative Commons
+     Attribution-ShareAlike 4.0 International (`CC BY-SA 4.0`,
+     https://creativecommons.org/licenses/by-sa/4.0/). Any redistribution of the `MGSM` subset
+     remains governed by `CC BY-SA 4.0`.
+   - `BIG-Bench Hard` (`suites/suite_unseen_mgsm240_bbh160.json`, 160 records = 20 items x 8 tasks
+     selected from `BBH`):
+     Mirac Suzgun et al., "Challenging BIG-Bench Tasks and Whether Chain-of-Thought Can Solve Them"
+     (https://github.com/suzgunmirac/BIG-Bench-Hard, MIT License).
+   - `HumanEval` (`suites/suite_unseen_humaneval164.json`, all 164 canonical problems):
+     Mark Chen et al., "Evaluating Large Language Models Trained on Code"
+     (https://github.com/openai/human-eval, MIT License).
+
+Full verbatim third-party license texts and copyright notices are provided in `THIRD_PARTY_LICENSES.md`.

@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.DS_Store
+._*
+Qwen3.5-0.8B*/
+*.safetensors
+traces/*_humaneval_exec.json
