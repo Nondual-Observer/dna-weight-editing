@@ -216,7 +216,7 @@ Comparing these fixed weight edits shows that distinct weight-space geometries c
   * Re-run HumanEval-164 unit tests (executes model-generated code — run inside an isolated container): `python3 scripts/grade_humaneval_sandbox.py`.
 
 ### Author Note and AI Collaboration Disclosure
-This research was conceived, directed, and verified by Igor M. Zhuk, who assumes full responsibility for the methodology, claims, and accuracy of all reported results. AI coding and language assistants were used in a human–AI collaborative workflow to implement benchmark runners and verification scripts, generate figures, and assist with bilingual manuscript editing. All reported metrics, weight-geometry measurements, and checksums can be independently verified directly from the open `.npz` patch, the 26 raw trace files, and the CPU verification scripts.
+This work was conducted in close human–AI research collaboration led by Igor M. Zhuk, who set the research direction, reviewed every step, and assumes full responsibility for the methodology, claims, and accuracy of all reported results. AI systems participated not only in technical implementation (benchmark runners, verification scripts, figure plotting, and bilingual manuscript editing), but also in the research process itself: weight-space analysis, hypothesis formulation and testing, experiment design, and interpretation of benchmark outcomes. All reported metrics, weight-geometry measurements, and checksums can be independently verified directly from the open `.npz` patch, the 26 raw trace files, and the CPU verification scripts.
 
 ---
 
