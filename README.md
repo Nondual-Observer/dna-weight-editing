@@ -215,6 +215,9 @@ Comparing these fixed weight edits shows that distinct weight-space geometries c
   * Verify all 37 SHA-256 checksums and recompute saved-trace metrics: `python3 scripts/verify_paper_metrics.py`.
   * Re-run HumanEval-164 unit tests (executes model-generated code — run inside an isolated container): `python3 scripts/grade_humaneval_sandbox.py`.
 
+### Author Note and AI Collaboration Disclosure
+This research was conceived, directed, and verified by Igor M. Zhuk, who assumes full responsibility for the methodology, claims, and accuracy of all reported results. AI coding and language assistants were used in a human–AI collaborative workflow to implement benchmark runners and verification scripts, generate figures, and assist with bilingual manuscript editing. All reported metrics, weight-geometry measurements, and checksums can be independently verified directly from the open `.npz` patch, the 26 raw trace files, and the CPU verification scripts.
+
 ---
 
 ## Supporting the Research
