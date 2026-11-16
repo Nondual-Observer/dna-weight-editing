@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Offline CPU verifier of all 37 SHA-256 artifact checksums, independent math/MGSM/BBH/MultiSpeech
+Offline CPU verifier of all 52 SHA-256 artifact checksums, independent math/MGSM/BBH/MultiSpeech
 trace recomputations, primary MIT reference graders (MIT-Std / MIT-Lenient via symbolic math-verify),
 40-block clustered sign-flip test for MGSM-240, calibration/holdout partition checks, static AST
 checks for HumanEval-164, and archived HumanEval execution tables reported in README.md.
@@ -54,26 +54,44 @@ REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EXPECTED_SHA256 = {
     "sgne_cc_dna_delta.npz": "4e4d36e032869bc10f56e2a2033a52d3f2774321cf867ef6f74274a7c0d1566d",
     "suites/fresh_blind56_32k_suite.json": "63ba2cf247934afbc767865a5727eb403bbbc6af3205d44d3e755fe849a43e89",
-    "suites/reproducibility_and_holdout_manifest.json": "ac6440486e51e684b2bd19738f8e8f7a7175fdb7cc3f36d1515d83fe250d8833",
+    "suites/reproducibility_and_holdout_manifest.json": "c36bd257d55e7643f0c10378fdd935f184e1740630b7c0a05f42f48cea01689a",
+    "suites/suite_bbh160.json": "d39a779dd69e915e4dd995d19be973e4108b4039e9721b5d1620493838db001c",
     "suites/suite_math500_full.json": "a596fa9b05b35f2c0ff32b70ea620d3241d90862cbd9bd1e77af738bb5c78a9b",
     "suites/suite_math500_strat100.json": "6347b75c46d4969a1c021ff8d42ba80e3c5c1a00540e62b7dc6fd0b8a8dd0c79",
+    "suites/suite_mgsm240.json": "07fc6f003fb91dbffac881f825bbb1636d7b9509c6d3fb928aeb9fc0edda32d5",
     "suites/suite_multispeech64.json": "8fa2da6c2ab8bd7d64659c24b1ead845032f19db6a3c79e05790a4d30afabe55",
     "suites/suite_unseen_humaneval164.json": "5703edc81a78f82dca58da583036dd73e22715085ca99540c8d88189f19e1a89",
     "suites/suite_unseen_mgsm240_bbh160.json": "5de44113cae2b07d8a693d1c87a2e61de5a18d79dd9c01e1049b10453f41df66",
+    "traces/audit_bf16_vs_t4_parity60_pure_t0.json": "f7d1cf696698de33538b166efdc721aec05bc207360b88533479bcb7f632d584",
+    "traces/bbh160_base_think32k_pure_t0.jsonl": "ab9852c54587a7196a7c155b8626348b6bddaf4bcef72546b7f32347c50963d7",
+    "traces/bbh160_mit_p50c_think32k_pure_t0.jsonl": "7ef1b9c7159a2b3798f7ac93943a6d8eba1a0d21d2cbca4e90b92efab33129c8",
+    "traces/bbh160_sgne_cc_think32k_pure_t0.jsonl": "658bf3a2c313ca693117a1d8e63e1f635e6f45e7258f0d561c83bee4f1699cf8",
     "traces/blind56_base_think32k_pure_t0.jsonl": "58d0db19f5d3d95dea9e4cb39b9a66979cfaef01a5235be8ed4b9945b1064ec0",
     "traces/blind56_sgne_cc_think32k_pure_t0.jsonl": "2072450af148d124fb09f9698d9eb137b933f44014f125e91f394709d7e5a14e",
     "traces/humaneval164_base_think32k_card_pp15.jsonl": "b2fd764fe9f681567a0d35a3251f484f9969c9149b63044589773e178369b041",
+    "traces/humaneval164_base_think32k_pure_t0.jsonl": "a9b1aba270fc6f53be031749248e269c85d32302540e129419997eb30b0c72b5",
     "traces/humaneval164_mit_p50c_think32k_card_pp15.jsonl": "dd1c6ea407d53ce0a4b9e22f5ec9436c2984419b074ac847c273293b1f0c4a13",
+    "traces/humaneval164_mit_p50c_think32k_pure_t0.jsonl": "038bd14e53ccfdffb4a25aa59da8769306ddd49036b5f415398c040cda51cd3c",
     "traces/humaneval164_sgne_cc_think32k_card_pp15.jsonl": "fc67fef2e2db445be97d94c6ac23981b848f557d10e981a0d043a06767c42106",
+    "traces/humaneval164_sgne_cc_think32k_pure_t0.jsonl": "f8f40e0640f1b5bacca883a063da1b40627560efb5e7f898000ee067af314322",
     "traces/math500_base_think32k_card_pp15.jsonl": "6d06d373c429c760584a553ebf9ed26a639f42ee64b4ce72b86d0c49fc3c113c",
+    "traces/math500_base_think32k_pure_t0.jsonl": "97e2b70bbe81367254a972b7efd4b0c649a35c6f08ae0fb992bc1c545c936a4f",
     "traces/math500_base_think32k_pure_t0_strat100.jsonl": "8df959b204995ca909f68533c1bb857f4e9a2a04789cf9dc27b8bb46fede68fd",
     "traces/math500_mit_p50c_think32k_card_pp15.jsonl": "2c766bf006030cb15dd6d8256534ca6ad730b8a780d9c058872d09d9b150ffb6",
+    "traces/math500_mit_p50c_think32k_pure_t0.jsonl": "ea51d00c88bf65a26acd82a977290ae0b5392eddfb8b18abb18826f773b6a8c8",
     "traces/math500_mit_p50c_think32k_pure_t0_strat100.jsonl": "4634cb4a5234cfce5627d8b31b6e103d28ebac009735e5c3475b6ac7913aeb26",
     "traces/math500_sgne_cc_think32k_card_pp15.jsonl": "8f4fed10df896a6ffe5f367982f23d88625cdee1b3cba5a40801626ce3b7be9a",
+    "traces/math500_sgne_cc_think32k_pure_t0.jsonl": "4b94c6c55599f40f26973af412b513b519d5d6232ebf374b16137089c7f4baf4",
     "traces/math500_sgne_cc_think32k_pure_t0_strat100.jsonl": "bf1a30e67cf900fbb892c5b4ac6ed7220fc64d8ef2e87e29ec6b6fa69187f350",
+    "traces/mgsm240_base_think32k_pure_t0.jsonl": "d0f05df915c4f9d501a7d0cf4e6062d164791c59d2de84c422b5280df11477ae",
     "traces/mgsm240_bbh160_base_think32k_card_pp15.jsonl": "8e7fa9ece63a7de7399b786dc53df8a1c1287e049bbea25e612a836c996fe23e",
     "traces/mgsm240_bbh160_mit_p50c_think32k_card_pp15.jsonl": "317556c3dd0e42b2561c37cd36d82e847a3fa2884523508e02348b0f9c96ba64",
     "traces/mgsm240_bbh160_sgne_cc_think32k_card_pp15.jsonl": "a8936581d18a482b773ad40f71cd6bfc59e93a5bc57280b44e3d30a963a93767",
+    "traces/mgsm240_mit_p50c_think32k_pure_t0.jsonl": "8f05359ab873100db2e083e5600b5fdced7df25b005c9a0a4cc0a490132afa5a",
+    "traces/mgsm240_sgne_cc_think32k_pure_t0.jsonl": "7aab88c558d2550bf848c8f0cf81d5033a1ae9c7de1b85db16d4eb611d880690",
+    "traces/mit_official_math500_ref/mit_p50c_merged.json": "c93d3db30a612ef0da396014fdfbe011efbcf2cd417e2e6125664d7effdd0471",
+    "traces/mit_official_math500_ref/mit_p50c_official_500_per_problem.json": "a699f8b5e31c8db138f5137ceba736fa26275630fdac803ba824ba1b1bad3edf",
+    "traces/mit_official_math500_ref/mit_unedited_merged.json": "5c31370485b9f197f592745e935eeaee6b09dc127daa5b2a8be1ebbcbc210221",
     "traces/multispeech64_base_nothink_card_pp15.jsonl": "c28645dd975aa0276986fb1b98bff9164e9c5a8b7dfa90cd696ed770fb34cd20",
     "traces/multispeech64_base_nothink_t0.jsonl": "38029c2f1e5e8726ec493a91a9c4cc70c8e9b2f97bcd2e4d1c0b5a209ebfd0f3",
     "traces/multispeech64_base_think32k_card_pp15.jsonl": "8b4767ca1b1dc0af3466a486bedbb50e685df339ed65111b81c84292ed633ccd",
@@ -86,9 +104,6 @@ EXPECTED_SHA256 = {
     "traces/multispeech64_sgne_cc_nothink_t0.jsonl": "9f805c6ea9f67f9828b83a6893ed1f8c688eefddd4fd586496099e93869db7e9",
     "traces/multispeech64_sgne_cc_think32k_card_pp15.jsonl": "d1f5687daeebb949635bbc44e7ac6494040ab3e5ab0a6980f7b6afd335d463bd",
     "traces/multispeech64_sgne_cc_think32k_pure_t0.jsonl": "f9f27c9b36c53b4605b5d57eb2d6aa81f4a9c845269b065995b495c2d60c2a29",
-    "traces/mit_official_math500_ref/mit_p50c_merged.json": "c93d3db30a612ef0da396014fdfbe011efbcf2cd417e2e6125664d7effdd0471",
-    "traces/mit_official_math500_ref/mit_p50c_official_500_per_problem.json": "a699f8b5e31c8db138f5137ceba736fa26275630fdac803ba824ba1b1bad3edf",
-    "traces/mit_official_math500_ref/mit_unedited_merged.json": "5c31370485b9f197f592745e935eeaee6b09dc127daa5b2a8be1ebbcbc210221",
 }
 
 
@@ -808,8 +823,112 @@ def main() -> None:
             pairs.append(f"{a} vs {b}: +{g}/-{l} p={p:.3g}")
         print(f"  {'':18s}   McNemar filter_pass: " + " | ".join(pairs))
 
+    print("\n========================================================================")
+    print("5. FULL 5x2 SYMMETRIC PURE_T0 BENCHMARK SUITE (MATH-500, MGSM-240, BBH-160, HUMANEVAL-164)")
+    print("========================================================================")
+    # 5a. Full MATH-500 PURE_T0 (500/500)
+    m500_t0_maps = {}
+    for tag, mslug in [("Base", "base"), ("MIT-p50c", "mit_p50c"), ("SGNE-CC", "sgne_cc")]:
+        rows_t0 = load_jsonl(f"traces/math500_{mslug}_think32k_pure_t0.jsonl")
+        assert len(rows_t0) == 500
+        st_m, std_m, len_m = eval_mit_three_metrics(rows_t0)
+        m500_t0_maps[tag] = st_m
+        cut_t0 = 100.0 * sum(1 for r in rows_t0 if not r["hit_eos"]) / 500.0
+        tok_t0 = sum(r["total_tokens"] for r in rows_t0) / 500.0
+        ok_b49 = sum(1 for u in b56_math_ids if st_m[u])
+        ok_h300 = sum(1 for u in untouched_300 if st_m[u])
+        print(
+            f"  MATH-500 Full PURE_T0      | {tag:8s}: Strict={sum(st_m.values()):3d}/500 ({100*sum(st_m.values())/500:5.2f}%), "
+            f"MIT-Std={sum(std_m.values()):3d}, MIT-Lenient={sum(len_m.values()):3d}, cut={cut_t0:6.2f}%, tok={tok_t0:7.1f} "
+            f"| Holdout-300={ok_h300}/300, FreshBlind-49={ok_b49}/49"
+        )
+    assert (sum(m500_t0_maps["Base"].values()), sum(m500_t0_maps["MIT-p50c"].values()), sum(m500_t0_maps["SGNE-CC"].values())) == (0, 25, 215)
+    _, _, g_m5, l_m5, p_m5 = mcnemar_pair(m500_t0_maps["SGNE-CC"], m500_t0_maps["MIT-p50c"])
+    print(f"  McNemar [SGNE-CC vs MIT-p50c @ MATH-500 Full PURE_T0]: +{g_m5}/-{l_m5}, exact two-sided p = {p_m5:.3e}")
+
+    # 5b. Full MGSM-240 PURE_T0 (240/240)
+    mg_t0_maps = {}
+    for tag, mslug in [("Base", "base"), ("MIT-p50c", "mit_p50c"), ("SGNE-CC", "sgne_cc")]:
+        rows_mg = load_jsonl(f"traces/mgsm240_{mslug}_think32k_pure_t0.jsonl")
+        assert len(rows_mg) == 240
+        mg_m = recompute_mgsm_strict(rows_mg)
+        mg_t0_maps[tag] = mg_m
+        cut_mg = 100.0 * sum(1 for r in rows_mg if not r["hit_eos"]) / 240.0
+        tok_mg = sum(r["total_tokens"] for r in rows_mg) / 240.0
+        print(f"  MGSM-240 PURE_T0           | {tag:8s}: {sum(mg_m.values()):3d}/240 ({100*sum(mg_m.values())/240:5.2f}%), cut={cut_mg:5.2f}%, tok={tok_mg:7.1f}")
+    assert (sum(mg_t0_maps["Base"].values()), sum(mg_t0_maps["MIT-p50c"].values()), sum(mg_t0_maps["SGNE-CC"].values())) == (5, 51, 92)
+    bdiffs_t0 = [
+        sum(1 for lg in ("ru", "zh", "ja", "fr", "es", "de") if mg_t0_maps["SGNE-CC"][f"mgsm/{lg}/{pi}"])
+        - sum(1 for lg in ("ru", "zh", "ja", "fr", "es", "de") if mg_t0_maps["MIT-p50c"][f"mgsm/{lg}/{pi}"])
+        for pi in prob_indices
+    ]
+    _, _, g_mg0, l_mg0, p_mg0_nv = mcnemar_pair(mg_t0_maps["SGNE-CC"], mg_t0_maps["MIT-p50c"])
     print(
-        "\nVERIFICATION COMPLETE: 37/37 SHA-256 checksums, independent MATH/Blind56/MGSM/BBH/MultiSpeech "
+        f"  MGSM-240 PURE_T0 [SGNE vs MIT]: discordant +{g_mg0}/-{l_mg0} | 40-block cluster sign-flip p = "
+        f"{exact_cluster_signflip_p(bdiffs_t0):.3e} (naive p = {p_mg0_nv:.3e})"
+    )
+
+    # 5c. Full BBH-160 PURE_T0 (160/160)
+    bb_t0_maps = {}
+    for tag, mslug in [("Base", "base"), ("MIT-p50c", "mit_p50c"), ("SGNE-CC", "sgne_cc")]:
+        rows_bb = load_jsonl(f"traces/bbh160_{mslug}_think32k_pure_t0.jsonl")
+        assert len(rows_bb) == 160
+        c_m = {
+            r["unique_id"]: bool(
+                ("</think>" in r["text"])
+                and mit_last_boxed(r["text"].rsplit("</think>", 1)[1]) not in (None, "")
+                and clean_bbh(mit_last_boxed(r["text"].rsplit("</think>", 1)[1])) == clean_bbh(r["gold"])
+            )
+            for r in rows_bb
+        }
+        bb_t0_maps[tag] = c_m
+        cut_bb = 100.0 * sum(1 for r in rows_bb if not r["hit_eos"]) / 160.0
+        tok_bb = sum(r["total_tokens"] for r in rows_bb) / 160.0
+        print(f"  BBH-160 PURE_T0            | {tag:8s}: clean={sum(c_m.values()):2d}/160 ({100*sum(c_m.values())/160:5.2f}%), cut={cut_bb:6.2f}%, tok={tok_bb:7.1f}")
+    assert (sum(bb_t0_maps["Base"].values()), sum(bb_t0_maps["MIT-p50c"].values()), sum(bb_t0_maps["SGNE-CC"].values())) == (0, 6, 66)
+    _, _, g_bb0, l_bb0, p_bb0 = mcnemar_pair(bb_t0_maps["SGNE-CC"], bb_t0_maps["MIT-p50c"])
+    print(f"  McNemar BBH-160 PURE_T0 [SGNE vs MIT]: clean +{g_bb0}/-{l_bb0} (p = {p_bb0:.3e})")
+
+    # 5d. Full HumanEval-164 PURE_T0 (164/164) static AST + archived execution verification
+    he_t0_arch = repro_manifest["humaneval_pure_t0_archived_execution_and_static_ast"]["models"]
+    he_t0_maps = {}
+    for tag, mkey, fn in [
+        ("Base", "base", "traces/humaneval164_base_think32k_pure_t0.jsonl"),
+        ("MIT-p50c", "mit_p50c", "traces/humaneval164_mit_p50c_think32k_pure_t0.jsonl"),
+        ("SGNE-CC", "sgne_cc", "traces/humaneval164_sgne_cc_think32k_pure_t0.jsonl"),
+    ]:
+        rows_he = load_jsonl(fn)
+        assert len(rows_he) == 164
+        extracted = ast_ok = 0
+        for r in rows_he:
+            if "</think>" not in r["text"]:
+                continue
+            tmeta = he_suite[r["unique_id"]]
+            code = extract_humaneval_candidate(r["text"].rsplit("</think>", 1)[1], tmeta["entry_point"], tmeta["code_signature_prompt"])
+            if code:
+                extracted += 1
+                try:
+                    ast.parse(code)
+                    ast_ok += 1
+                except SyntaxError:
+                    pass
+        arch_e = he_t0_arch[mkey]
+        pset = set(arch_e["archived_passed_ids"])
+        he_t0_maps[tag] = {uid: (uid in pset) for uid in he_suite}
+        assert arch_e["static_check_current_extractor"]["code_extracted"] == extracted
+        assert arch_e["static_check_current_extractor"]["ast_parse_valid"] == ast_ok
+        cut_he = 100.0 * sum(1 for r in rows_he if not r["hit_eos"]) / 164.0
+        tok_he = sum(r["total_tokens"] for r in rows_he) / 164.0
+        print(
+            f"  HumanEval-164 PURE_T0      | {tag:8s}: archived_pass@1={len(pset):2d}/164 ({100*len(pset)/164:5.2f}%), "
+            f"extracted={extracted:3d}/164, ast_valid={ast_ok:3d}/164, cut={cut_he:5.2f}%, tok={tok_he:7.1f}"
+        )
+    assert (sum(he_t0_maps["Base"].values()), sum(he_t0_maps["MIT-p50c"].values()), sum(he_t0_maps["SGNE-CC"].values())) == (9, 23, 53)
+    _, _, g_he0, l_he0, p_he0 = mcnemar_pair(he_t0_maps["SGNE-CC"], he_t0_maps["MIT-p50c"])
+    print(f"  McNemar HumanEval-164 PURE_T0 [SGNE vs MIT]: +{g_he0}/-{l_he0} (p = {p_he0:.3e})")
+
+    print(
+        "\nVERIFICATION COMPLETE: 52/52 SHA-256 checksums, independent MATH/Blind56/MGSM/BBH/MultiSpeech "
         "trace recomputations, static HumanEval AST checks, and archived HumanEval tables verified."
     )
 

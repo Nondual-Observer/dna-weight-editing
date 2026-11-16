@@ -79,8 +79,8 @@
     },
     "hardware_and_sampling_provenance_note": "Published .jsonl records did not store per-row GPU device identifiers (recorded_gpu_devices is ['unspecified'] in all 26 files), and the two FreshBlind56 trace files have empty per-row sampling dicts (their THINK32K_PURE_T0 settings are recorded by the author's experimental protocol). Device assignment (NVIDIA A100 and RTX PRO 6000 Blackwell in native BF16, including all three MATH-500 strat-100 PURE_T0 files, vs NVIDIA Tesla T4 shards using FP16 Tensor Core matmuls) therefore rests on the author's protocol record rather than per-row JSONL fields.",
     "precision_by_device": {
-      "NVIDIA A100 / RTX PRO 6000 Blackwell": "Weights stored and matmuls executed in native hardware BF16; RMSNorm, conv1d, L2-norm, and GatedDeltaNet recurrent state accumulated in FP32.",
-      "NVIDIA Tesla T4 (SM75)": "Weights quantized to exact BF16, matmuls executed on FP16 Tensor Cores (SM75 lacks native BF16 Tensor Cores), with RMSNorm, conv1d, L2-norm, attention softmax, and GatedDeltaNet recurrent state in FP32."
+      "NVIDIA Tesla T4 (SM75)": "Weights quantized to exact BF16, matmuls executed on FP16 Tensor Cores (SM75 lacks native BF16 Tensor Cores), with RMSNorm, conv1d, L2-norm, attention softmax, and GatedDeltaNet recurrent state in FP32.",
+      "NVIDIA A100 / NVIDIA L4 / RTX PRO 6000 Blackwell": "Weights stored and matmuls executed in native hardware BF16; RMSNorm, conv1d, L2-norm, and GatedDeltaNet recurrent state accumulated in FP32."
     },
     "grading_rules": {
       "MATH_Strict": "closed </think> AND hit_eos AND math-verify 0.9.0 symbolic equivalence on last \\\\boxed{} after </think>.",
@@ -91,6 +91,51 @@
       "MultiSpeech_auto_filter": "Automated formal filter: closed </think> (when thinking_on), hit_eos, non-empty post-think text, char_8gram_rep <= 0.25, word_4gram_rep <= 0.20 (except zh/ja), and <2 foreign-script characters. Does not evaluate factual accuracy or semantic coherence."
     },
     "trace_files": {
+      "traces/bbh160_base_think32k_pure_t0.jsonl": {
+        "rows": 160,
+        "thinking_on": true,
+        "sampling": {
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "top_k": 0,
+          "presence_penalty": 0.0,
+          "seed": 0,
+          "max_new_tokens": 32768
+        },
+        "recorded_gpu_devices": [
+          "unspecified"
+        ]
+      },
+      "traces/bbh160_mit_p50c_think32k_pure_t0.jsonl": {
+        "rows": 160,
+        "thinking_on": true,
+        "sampling": {
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "top_k": 0,
+          "presence_penalty": 0.0,
+          "seed": 0,
+          "max_new_tokens": 32768
+        },
+        "recorded_gpu_devices": [
+          "unspecified"
+        ]
+      },
+      "traces/bbh160_sgne_cc_think32k_pure_t0.jsonl": {
+        "rows": 160,
+        "thinking_on": true,
+        "sampling": {
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "top_k": 0,
+          "presence_penalty": 0.0,
+          "seed": 0,
+          "max_new_tokens": 32768
+        },
+        "recorded_gpu_devices": [
+          "unspecified"
+        ]
+      },
       "traces/blind56_base_think32k_pure_t0.jsonl": {
         "rows": 56,
         "thinking_on": true,
@@ -122,6 +167,21 @@
           "unspecified"
         ]
       },
+      "traces/humaneval164_base_think32k_pure_t0.jsonl": {
+        "rows": 164,
+        "thinking_on": true,
+        "sampling": {
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "top_k": 0,
+          "presence_penalty": 0.0,
+          "seed": 0,
+          "max_new_tokens": 32768
+        },
+        "recorded_gpu_devices": [
+          "unspecified"
+        ]
+      },
       "traces/humaneval164_mit_p50c_think32k_card_pp15.jsonl": {
         "rows": 164,
         "thinking_on": true,
@@ -130,6 +190,21 @@
           "top_p": 0.95,
           "top_k": 20,
           "presence_penalty": 1.5,
+          "seed": 0,
+          "max_new_tokens": 32768
+        },
+        "recorded_gpu_devices": [
+          "unspecified"
+        ]
+      },
+      "traces/humaneval164_mit_p50c_think32k_pure_t0.jsonl": {
+        "rows": 164,
+        "thinking_on": true,
+        "sampling": {
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "top_k": 0,
+          "presence_penalty": 0.0,
           "seed": 0,
           "max_new_tokens": 32768
         },
@@ -152,6 +227,21 @@
           "unspecified"
         ]
       },
+      "traces/humaneval164_sgne_cc_think32k_pure_t0.jsonl": {
+        "rows": 164,
+        "thinking_on": true,
+        "sampling": {
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "top_k": 0,
+          "presence_penalty": 0.0,
+          "seed": 0,
+          "max_new_tokens": 32768
+        },
+        "recorded_gpu_devices": [
+          "unspecified"
+        ]
+      },
       "traces/math500_base_think32k_card_pp15.jsonl": {
         "rows": 500,
         "thinking_on": true,
@@ -160,6 +250,21 @@
           "top_p": 0.95,
           "top_k": 20,
           "presence_penalty": 1.5,
+          "seed": 0,
+          "max_new_tokens": 32768
+        },
+        "recorded_gpu_devices": [
+          "unspecified"
+        ]
+      },
+      "traces/math500_base_think32k_pure_t0.jsonl": {
+        "rows": 500,
+        "thinking_on": true,
+        "sampling": {
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "top_k": 0,
+          "presence_penalty": 0.0,
           "seed": 0,
           "max_new_tokens": 32768
         },
@@ -197,6 +302,21 @@
           "unspecified"
         ]
       },
+      "traces/math500_mit_p50c_think32k_pure_t0.jsonl": {
+        "rows": 500,
+        "thinking_on": true,
+        "sampling": {
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "top_k": 0,
+          "presence_penalty": 0.0,
+          "seed": 0,
+          "max_new_tokens": 32768
+        },
+        "recorded_gpu_devices": [
+          "unspecified"
+        ]
+      },
       "traces/math500_mit_p50c_think32k_pure_t0_strat100.jsonl": {
         "rows": 100,
         "thinking_on": true,
@@ -227,8 +347,38 @@
           "unspecified"
         ]
       },
+      "traces/math500_sgne_cc_think32k_pure_t0.jsonl": {
+        "rows": 500,
+        "thinking_on": true,
+        "sampling": {
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "top_k": 0,
+          "presence_penalty": 0.0,
+          "seed": 0,
+          "max_new_tokens": 32768
+        },
+        "recorded_gpu_devices": [
+          "unspecified"
+        ]
+      },
       "traces/math500_sgne_cc_think32k_pure_t0_strat100.jsonl": {
         "rows": 100,
+        "thinking_on": true,
+        "sampling": {
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "top_k": 0,
+          "presence_penalty": 0.0,
+          "seed": 0,
+          "max_new_tokens": 32768
+        },
+        "recorded_gpu_devices": [
+          "unspecified"
+        ]
+      },
+      "traces/mgsm240_base_think32k_pure_t0.jsonl": {
+        "rows": 240,
         "thinking_on": true,
         "sampling": {
           "temperature": 0.0,
@@ -280,6 +430,36 @@
           "top_p": 0.95,
           "top_k": 20,
           "presence_penalty": 1.5,
+          "seed": 0,
+          "max_new_tokens": 32768
+        },
+        "recorded_gpu_devices": [
+          "unspecified"
+        ]
+      },
+      "traces/mgsm240_mit_p50c_think32k_pure_t0.jsonl": {
+        "rows": 240,
+        "thinking_on": true,
+        "sampling": {
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "top_k": 0,
+          "presence_penalty": 0.0,
+          "seed": 0,
+          "max_new_tokens": 32768
+        },
+        "recorded_gpu_devices": [
+          "unspecified"
+        ]
+      },
+      "traces/mgsm240_sgne_cc_think32k_pure_t0.jsonl": {
+        "rows": 240,
+        "thinking_on": true,
+        "sampling": {
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "top_k": 0,
+          "presence_penalty": 0.0,
           "seed": 0,
           "max_new_tokens": 32768
         },
@@ -1321,6 +1501,165 @@
           "humaneval/HumanEval/92",
           "humaneval/HumanEval/97",
           "humaneval/HumanEval/98"
+        ]
+      }
+    }
+  },
+  "humaneval_pure_t0_archived_execution_and_static_ast": {
+    "regime": "PURE_T0",
+    "sandbox_script": "scripts/grade_humaneval_sandbox.py",
+    "models": {
+      "base": {
+        "trace_file": "traces/humaneval164_base_think32k_pure_t0.jsonl",
+        "trace_sha256": "a9b1aba270fc6f53be031749248e269c85d32302540e129419997eb30b0c72b5",
+        "n_evaluated": 164,
+        "archived_pass_at_1_count": 9,
+        "archived_pass_at_1_pct": 5.49,
+        "archived_status_breakdown": {
+          "UNCLOSED_THINK_32K": 148,
+          "ASSERTION_FAIL": 4,
+          "PASS": 9,
+          "RUNTIME_ERROR": 3
+        },
+        "static_check_current_extractor": {
+          "unclosed_think": 148,
+          "code_extracted": 16,
+          "no_code_after_closed_think": 0,
+          "ast_parse_valid": 16,
+          "ast_parse_syntax_error": 0
+        },
+        "archived_passed_ids": [
+          "humaneval/HumanEval/15",
+          "humaneval/HumanEval/152",
+          "humaneval/HumanEval/157",
+          "humaneval/HumanEval/23",
+          "humaneval/HumanEval/30",
+          "humaneval/HumanEval/31",
+          "humaneval/HumanEval/4",
+          "humaneval/HumanEval/42",
+          "humaneval/HumanEval/82"
+        ]
+      },
+      "mit_p50c": {
+        "trace_file": "traces/humaneval164_mit_p50c_think32k_pure_t0.jsonl",
+        "trace_sha256": "038bd14e53ccfdffb4a25aa59da8769306ddd49036b5f415398c040cda51cd3c",
+        "n_evaluated": 164,
+        "archived_pass_at_1_count": 23,
+        "archived_pass_at_1_pct": 14.02,
+        "archived_status_breakdown": {
+          "UNCLOSED_THINK_32K": 105,
+          "ASSERTION_FAIL": 23,
+          "RUNTIME_ERROR": 5,
+          "SYNTAX_ERROR": 8,
+          "PASS": 23
+        },
+        "static_check_current_extractor": {
+          "unclosed_think": 105,
+          "code_extracted": 59,
+          "no_code_after_closed_think": 0,
+          "ast_parse_valid": 51,
+          "ast_parse_syntax_error": 8
+        },
+        "archived_passed_ids": [
+          "humaneval/HumanEval/121",
+          "humaneval/HumanEval/122",
+          "humaneval/HumanEval/127",
+          "humaneval/HumanEval/147",
+          "humaneval/HumanEval/153",
+          "humaneval/HumanEval/2",
+          "humaneval/HumanEval/22",
+          "humaneval/HumanEval/23",
+          "humaneval/HumanEval/24",
+          "humaneval/HumanEval/28",
+          "humaneval/HumanEval/29",
+          "humaneval/HumanEval/3",
+          "humaneval/HumanEval/30",
+          "humaneval/HumanEval/34",
+          "humaneval/HumanEval/35",
+          "humaneval/HumanEval/42",
+          "humaneval/HumanEval/52",
+          "humaneval/HumanEval/55",
+          "humaneval/HumanEval/7",
+          "humaneval/HumanEval/71",
+          "humaneval/HumanEval/74",
+          "humaneval/HumanEval/96",
+          "humaneval/HumanEval/98"
+        ]
+      },
+      "sgne_cc": {
+        "trace_file": "traces/humaneval164_sgne_cc_think32k_pure_t0.jsonl",
+        "trace_sha256": "f8f40e0640f1b5bacca883a063da1b40627560efb5e7f898000ee067af314322",
+        "n_evaluated": 164,
+        "archived_pass_at_1_count": 53,
+        "archived_pass_at_1_pct": 32.32,
+        "archived_status_breakdown": {
+          "ASSERTION_FAIL": 92,
+          "PASS": 53,
+          "RUNTIME_ERROR": 9,
+          "SYNTAX_ERROR": 3,
+          "UNCLOSED_THINK_32K": 7
+        },
+        "static_check_current_extractor": {
+          "unclosed_think": 7,
+          "code_extracted": 157,
+          "no_code_after_closed_think": 0,
+          "ast_parse_valid": 154,
+          "ast_parse_syntax_error": 3
+        },
+        "archived_passed_ids": [
+          "humaneval/HumanEval/103",
+          "humaneval/HumanEval/107",
+          "humaneval/HumanEval/112",
+          "humaneval/HumanEval/116",
+          "humaneval/HumanEval/12",
+          "humaneval/HumanEval/121",
+          "humaneval/HumanEval/127",
+          "humaneval/HumanEval/13",
+          "humaneval/HumanEval/14",
+          "humaneval/HumanEval/143",
+          "humaneval/HumanEval/15",
+          "humaneval/HumanEval/151",
+          "humaneval/HumanEval/152",
+          "humaneval/HumanEval/162",
+          "humaneval/HumanEval/18",
+          "humaneval/HumanEval/2",
+          "humaneval/HumanEval/22",
+          "humaneval/HumanEval/23",
+          "humaneval/HumanEval/25",
+          "humaneval/HumanEval/26",
+          "humaneval/HumanEval/27",
+          "humaneval/HumanEval/29",
+          "humaneval/HumanEval/3",
+          "humaneval/HumanEval/30",
+          "humaneval/HumanEval/34",
+          "humaneval/HumanEval/35",
+          "humaneval/HumanEval/4",
+          "humaneval/HumanEval/42",
+          "humaneval/HumanEval/45",
+          "humaneval/HumanEval/47",
+          "humaneval/HumanEval/48",
+          "humaneval/HumanEval/49",
+          "humaneval/HumanEval/5",
+          "humaneval/HumanEval/51",
+          "humaneval/HumanEval/52",
+          "humaneval/HumanEval/53",
+          "humaneval/HumanEval/55",
+          "humaneval/HumanEval/56",
+          "humaneval/HumanEval/58",
+          "humaneval/HumanEval/60",
+          "humaneval/HumanEval/61",
+          "humaneval/HumanEval/66",
+          "humaneval/HumanEval/7",
+          "humaneval/HumanEval/71",
+          "humaneval/HumanEval/74",
+          "humaneval/HumanEval/8",
+          "humaneval/HumanEval/84",
+          "humaneval/HumanEval/85",
+          "humaneval/HumanEval/86",
+          "humaneval/HumanEval/88",
+          "humaneval/HumanEval/9",
+          "humaneval/HumanEval/92",
+          "humaneval/HumanEval/97"
         ]
       }
     }

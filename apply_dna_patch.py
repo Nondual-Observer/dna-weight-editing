@@ -42,6 +42,10 @@ EXPECTED_BASE_SHA256 = {
     "config.json": "b90b86f35c8e6925ef74ee04d0e758f0a845c83a42089ad82bbaa948de9b4204",
     "tokenizer.json": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42",
 }
+SAFETENSORS_CANDIDATES = (
+    "model.safetensors",
+    "model.safetensors-00001-of-00001.safetensors",
+)
 
 ALLOWED_COL_SUFFIXES = (
     "mlp.down_proj.weight",
@@ -72,13 +76,21 @@ def u16_to_bf16(u16_arr: np.ndarray) -> torch.Tensor:
     return torch.from_numpy(f32_native).to(dtype=torch.bfloat16).clone()
 
 
+def find_safetensors_file(model_dir: Path) -> Path | None:
+    for name in SAFETENSORS_CANDIDATES:
+        cand = model_dir / name
+        if cand.is_file():
+            return cand
+    return None
+
+
 def resolve_base_dir(base_model: str, total_steps: int = 4) -> Path:
     local_path = Path(base_model).expanduser()
-    if local_path.is_dir() and (local_path / "model.safetensors").is_file():
+    if local_path.is_dir() and find_safetensors_file(local_path) is not None:
         return local_path
     if base_model.startswith((".", "/", "~")):
         raise FileNotFoundError(
-            f"Локальная папка базовой модели с model.safetensors не найдена: {local_path.resolve()}"
+            f"Локальная папка базовой модели с весами safetensors не найдена: {local_path.resolve()}"
         )
     try:
         from huggingface_hub import snapshot_download
@@ -93,14 +105,14 @@ def resolve_base_dir(base_model: str, total_steps: int = 4) -> Path:
 
 def verify_base_model_hashes(base_dir: Path) -> None:
     for fname, exp_sha in EXPECTED_BASE_SHA256.items():
-        fpath = base_dir / fname
-        if not fpath.is_file():
+        fpath = find_safetensors_file(base_dir) if fname == "model.safetensors" else (base_dir / fname)
+        if fpath is None or not fpath.is_file():
             raise FileNotFoundError(f"В папке базовой модели отсутствует обязательный файл {fname}: {base_dir}")
         act_sha = sha256_file(fpath)
-        print(f"[SHA-256 base] {fname}: {act_sha}")
+        print(f"[SHA-256 base] {fpath.name}: {act_sha}")
         if act_sha != exp_sha:
             raise ValueError(
-                f"Несовпадение SHA-256 файла базовой модели {fname}!\n"
+                f"Несовпадение SHA-256 файла базовой модели {fpath.name}!\n"
                 f"  Ожидалось: {exp_sha}\n"
                 f"  Получено:  {act_sha}\n"
                 f"  (Используйте --skip-hash-check только при осознанной проверке альтернативной ревизии.)"
@@ -137,8 +149,10 @@ def load_patch_maps(
     full_patch_map: dict[str, torch.Tensor] = {}
     base_shapes = _read_base_shapes(base_sf_path)
 
-    if patch_path.is_dir() and (patch_path / "model.safetensors").is_file():
-        patch_path = patch_path / "model.safetensors"
+    if patch_path.is_dir():
+        sf_cand = find_safetensors_file(patch_path)
+        if sf_cand is not None:
+            patch_path = sf_cand
 
     if patch_path.suffix == ".npz":
         npz = dict(np.load(patch_path, allow_pickle=False))
@@ -538,9 +552,9 @@ def main() -> int:
         print(f"Ошибка загрузки базовой модели: {exc}", file=sys.stderr)
         return 1
 
-    sf_path = base_dir / "model.safetensors"
-    if not sf_path.is_file():
-        print(f"Ошибка: в {base_dir} не найден файл model.safetensors", file=sys.stderr)
+    sf_path = find_safetensors_file(base_dir)
+    if sf_path is None:
+        print(f"Ошибка: в {base_dir} не найден файл весов safetensors", file=sys.stderr)
         return 1
 
     if not args.skip_hash_check:
@@ -627,9 +641,18 @@ def main() -> int:
             tensors_out[key] = w
 
     print(f"[4/4] Сохранение собранной модели в {out_dir}...")
+    skip_aux = {"model.safetensors.index.json", "README.md", "README_RU.md"}
     for item in base_dir.iterdir():
-        if item.is_file() and not item.name.endswith(".safetensors") and not item.name.startswith("."):
-            shutil.copy2(item, out_dir / item.name)
+        if (
+            item.is_file()
+            and not item.name.endswith(".safetensors")
+            and item.name not in skip_aux
+            and not item.name.startswith(".")
+        ):
+            dst_item = out_dir / item.name
+            if dst_item.exists() and item.name in {"LICENSE", "NOTICE", "THIRD_PARTY_LICENSES.md"}:
+                continue
+            shutil.copy2(item, dst_item, follow_symlinks=True)
 
     save_file(tensors_out, str(out_sf), metadata=sf_meta)
     print(f"Готово: {out_sf}")

@@ -1,0 +1,29 @@
+{
+  "base": {
+    "n_tasks": 20,
+    "t4_fp16_strict_ok": 0,
+    "pro_bf16_strict_ok": 0,
+    "grade_agreement_count": 20,
+    "grade_agreement_pct": 100.0,
+    "pro_gpu_device": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+    "pro_compute_dtype": "torch.bfloat16"
+  },
+  "sgne_cc": {
+    "n_tasks": 20,
+    "t4_fp16_strict_ok": 10,
+    "pro_bf16_strict_ok": 9,
+    "grade_agreement_count": 13,
+    "grade_agreement_pct": 65.0,
+    "pro_gpu_device": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+    "pro_compute_dtype": "torch.bfloat16"
+  },
+  "mit_p50c": {
+    "n_tasks": 20,
+    "t4_fp16_strict_ok": 0,
+    "pro_bf16_strict_ok": 1,
+    "grade_agreement_count": 19,
+    "grade_agreement_pct": 95.0,
+    "pro_gpu_device": "NVIDIA A100-SXM4-40GB",
+    "pro_compute_dtype": "torch.bfloat16"
+  }
+}
