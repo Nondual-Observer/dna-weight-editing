@@ -253,13 +253,17 @@ Comparing these fixed weight edits across the complete 5 × 2 matrix shows that 
 - **Follow-up pure-Transformer transfer (`SGNE-CC v2`):** [`Nondual-Observer/deepseek-r1-1.5b-sgne-cc-v2`](https://github.com/Nondual-Observer/deepseek-r1-1.5b-sgne-cc-v2) ([DOI: 10.5281/zenodo.24398165](https://doi.org/10.5281/zenodo.24398165)) transfers norm-preserving `mlp.down_proj` column rotation (`205` columns, `0.0177%`, no gates or recurrent layers) to `DeepSeek-R1-Distill-Qwen-1.5B`.
 
 ### Author Note and AI Collaboration Disclosure
-This work was done by Igor M. Zhuk in collaboration with AI—both on the research itself and on the code, figures, and text. The author takes full responsibility for all claims, and every number can be verified locally from the open `.npz` patch, 38 trace files, and CPU scripts (52 files under SHA-256).
+This work was done by Igor M. Zhuk ([ORCID 0009-0003-1670-8388](https://orcid.org/0009-0003-1670-8388)) in collaboration with AI—both on the research itself and on the code, figures, and text. The author takes full responsibility for all claims, and every number can be verified locally from the open `.npz` patch, 38 trace files, and CPU scripts (52 files under SHA-256).
+
+* **Ready-to-run BF16 checkpoint (Hugging Face):** [`Nondual-Observer/Qwen3.5-0.8B-SGNE-CC`](https://huggingface.co/Nondual-Observer/Qwen3.5-0.8B-SGNE-CC)
+* **Archival Zenodo Deposit:** [DOI: `10.5281/zenodo.24235218`](https://doi.org/10.5281/zenodo.24235218)
+* **Theoretical Framework (`DOT`):** *Distinction Observable Theory (`DOT`)* ([GitHub: `Nondual-Observer/DOTheory`](https://github.com/Nondual-Observer/DOTheory) · [Zenodo Concept DOI: `10.5281/zenodo.23481643`](https://doi.org/10.5281/zenodo.23481643))
 
 ---
 
 ## Supporting the Research
 
-Donations support the open [DOT](https://github.com/Nondual-Observer/DOTheory) project by an independent developer. Support helps:
+Donations support the open [DOT (`Nondual-Observer/DOTheory`)](https://github.com/Nondual-Observer/DOTheory) project by an independent developer. Support helps:
 
 - conduct larger computational experiments;
 - develop theoretical formalization;

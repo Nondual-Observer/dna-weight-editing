@@ -245,14 +245,25 @@ Qwen3.5-0.8B — гибридная модель с 752 млн параметр�
   * Сверить все 52 суммы SHA-256 и пересчитать метрики сохранённых трасс: `python3 scripts/verify_paper_metrics.py`.
   * Перезапустить модульные тесты HumanEval-164 (исполняет сгенерированный код — запускайте внутри изолированного контейнера): `python3 scripts/grade_humaneval_sandbox.py`.
 
+### Независимые проверки и продолжение
+
+- **Дэйв Улеманн (`NeoCortex0815`) — *Knowing Is Not Committing v0.5* (разделы 3.13–3.14):** независимая проверка на `llama.cpp`, репликация ветки `GatedDeltaNet`-only и сравнение нескольких запусков ([DOI: 10.5281/zenodo.24420522](https://doi.org/10.5281/zenodo.24420522), [репозиторий](https://github.com/NeoCortex0815/knowing-is-not-committing)).
+- **`Human-AI-Evolution` (`@HedonismJesse`) — 5-рукавная репликация и абляция на `transformers`:** независимое подтверждение восстановления жадного режима `T = 0` на отложенной выборке из 300 задач (`143/300` строго) и открытые `.npz`-дельты абляций ([`weight-space-notes`](https://github.com/Human-AI-Evolution/weight-space-notes), [обсуждение #4](https://github.com/RikiyaT/lm_understand-logs/issues/4#issuecomment-7062726129)).
+- **Карлос Толедо (`@carlostoledo1891`):** независимая двойная перепроверка всех 3 000 опубликованных ответов `MATH-500` ([обсуждение #4](https://github.com/RikiyaT/lm_understand-logs/issues/4#issuecomment-7060542882)).
+- **Перенос на чистый Transformer (`SGNE-CC v2`):** [`Nondual-Observer/deepseek-r1-1.5b-sgne-cc-v2`](https://github.com/Nondual-Observer/deepseek-r1-1.5b-sgne-cc-v2) ([чекпоинт HF](https://huggingface.co/Nondual-Observer/DeepSeek-R1-Distill-Qwen-1.5B-SGNE-CC-v2) · [DOI: 10.5281/zenodo.24398165](https://doi.org/10.5281/zenodo.24398165)) переносит сохраняющий норму поворот `205` столбцов `mlp.down_proj` (`0.0177%`) на `DeepSeek-R1-Distill-Qwen-1.5B`.
+
 ### Примечание об авторстве и участии ИИ
-Работа выполнена И. М. Жуком в сотрудничестве с ИИ — как в самом исследовании, так и в подготовке кода, графиков и текста. Полную ответственность за выводы несёт автор, а все числа и замеры проверяются локально по открытому файлу `.npz`, 38 трассам и скриптам на процессоре (52 файла под SHA-256).
+Работа выполнена И. М. Жуком ([ORCID 0009-0003-1670-8388](https://orcid.org/0009-0003-1670-8388)) в сотрудничестве с ИИ — как в самом исследовании, так и в подготовке кода, графиков и текста. Полную ответственность за выводы несёт автор, а все числа и замеры проверяются локально по открытому файлу `.npz`, 38 трассам и скриптам на процессоре (52 файла под SHA-256).
+
+* **Готовый чекпоинт BF16 (Hugging Face):** [`Nondual-Observer/Qwen3.5-0.8B-SGNE-CC`](https://huggingface.co/Nondual-Observer/Qwen3.5-0.8B-SGNE-CC)
+* **Архив на Zenodo:** [DOI: `10.5281/zenodo.24235218`](https://doi.org/10.5281/zenodo.24235218)
+* **Теоретическая основа (ТНР):** *Теория Наблюдаемого Различения (ТНР)* ([GitHub: `Nondual-Observer/DOTheory`](https://github.com/Nondual-Observer/DOTheory/blob/main/README_RU.md) · [Zenodo Concept DOI: `10.5281/zenodo.23481643`](https://doi.org/10.5281/zenodo.23481643))
 
 ---
 
 ## Поддержка исследования
 
-Пожертвования направляются в поддержку открытого проекта [DOT](https://github.com/Nondual-Observer/DOTheory) независимого разработчика. Поддержка помогает:
+Пожертвования направляются в поддержку открытого проекта [ТНР (`Nondual-Observer/DOTheory`)](https://github.com/Nondual-Observer/DOTheory/blob/main/README_RU.md) независимого разработчика. Поддержка помогает:
 
 - проводить более масштабные вычислительные эксперименты;
 - развивать теоретическую формализацию;
